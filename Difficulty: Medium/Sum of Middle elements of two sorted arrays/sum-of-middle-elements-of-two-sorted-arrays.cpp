@@ -15,10 +15,12 @@ class Solution {
         
         int i = 0;
         int j = 0;
+        
         int count = 0;
         
         int mid = 0;
         int mid1 = 0;
+        
         bool flag1 = false;
         bool flag2 = false;
         
@@ -54,8 +56,8 @@ class Solution {
             
         }
         
-        
-        return (mid+mid1);
+        return (mid+mid1);        
+            
     }
 };
 
