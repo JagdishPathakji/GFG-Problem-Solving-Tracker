@@ -95,14 +95,14 @@ class Solution {
     int findheight(Node *node) {
         
         if(node == nullptr)
-        return 0;
+        return -1;
         
         return 1+max(findheight(node->left),findheight(node->right));
     }
     
     int height(Node* node) {
         
-        return findheight(node)-1;
+        return findheight(node);
         
     }
 };
