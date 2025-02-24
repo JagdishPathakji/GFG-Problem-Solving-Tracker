@@ -106,17 +106,23 @@ class Solution {
         
         while(!q.empty()) {
             
-            Node *temp = q.front();
-            q.pop();
+            int k = q.size();
+            int sum = 0;
             
-            if(temp->left) 
-            q.push(temp->left);
+            while(k--) {
+                
+                Node *temp = q.front();
+                q.pop();
+                
+                if(temp->left) 
+                q.push(temp->left);
             
-            while(temp) {
-                v.push_back(temp->data);
-                temp = temp->right;
-                if(temp and temp->left) {
-                    q.push(temp->left);
+                while(temp) {
+                    v.push_back(temp->data);
+                    temp = temp->right;
+                    if(temp and temp->left) {
+                        q.push(temp->left);
+                    }
                 }
             }
         
