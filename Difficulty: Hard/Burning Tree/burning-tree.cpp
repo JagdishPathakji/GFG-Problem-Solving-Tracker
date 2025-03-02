@@ -137,7 +137,7 @@ class Solution {
        
        // finding the height of the particular nodes which are found in between the path
         int maxi = 0;
-        for (int i = 0; i < v.size() - 1; ++i) {
+        for (int i = 0; i < v.size() - 1; i++) {
             int dist = (v.size() - 1) - i;
             if (v[i]->right == v[i + 1]) {
                 maxi = max(maxi, dist + height(v[i]->left));
