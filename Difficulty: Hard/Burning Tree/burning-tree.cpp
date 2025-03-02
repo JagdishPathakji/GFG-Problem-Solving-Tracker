@@ -146,7 +146,10 @@ class Solution {
             }
         }
         
+        // finding the height of the targeted root subtree
         maxi = max(maxi, height(v.back())-1);
+        
+        //return the max
         return maxi;
         
     }
