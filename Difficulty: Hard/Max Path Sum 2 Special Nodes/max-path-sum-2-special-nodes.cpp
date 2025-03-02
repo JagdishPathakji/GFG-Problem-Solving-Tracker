@@ -93,36 +93,33 @@ struct Node
 
 class Solution {
 public:
-    
+
     int find(Node *root, int &sum) {
         
-        // no node exists
-        if(!root)
-        return 0;
+        if(!root) return 0;
         
-        // if it is an leaf node 
-        if(root->left == nullptr and root->right == nullptr)
-        return root->data;
+        if(!root->left and !root->right) return root->data;
         
-        // left side path sum
         int l = find(root->left,sum);
-        // right side path sum
         int r = find(root->right,sum);
         
-        // both left and right exists
+        // if both left and right exists
         if(root->left and root->right) {
-            sum = max(sum,root->data + l + r);
+            sum = max(sum,root->data+l+r);
             return root->data + max(l,r);
         }
         
-        // only left exists
-        if(root->left) 
-        return root->data + l;
+        // if only left exists
+        if(root->left) {
+            return root->data + l;
+        }
         
-        if(root->right)
-        return root->data + r;
+        // if only right exists
+        if(root->right) {
+            return root->data + r;
+        }
     }
-
+    
     int maxPathSum(Node* root) {
         
         int sum = INT_MIN;
@@ -131,10 +128,12 @@ public:
         if(root->left and root->right)
         return sum;
         
-        // if root node is also an special node
         return max(sum,val);
+                
     }
+    
 };
+
 
 
 //{ Driver Code Starts.
