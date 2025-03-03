@@ -149,9 +149,6 @@ void find(Node *root, int &k, int &ans, int &count) {
         ans = ans + root->data;
         count++;
     }
-    else {
-        return;
-    }
     
     find(root->right,k,ans,count);
 }
