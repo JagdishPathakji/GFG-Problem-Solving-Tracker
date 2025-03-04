@@ -134,30 +134,31 @@ struct Node {
 
 // Function to find ceil of a given input in BST. If input is more 
 // than the max key in BST, return -1 
-void find(Node *root, int &k, int &ans, int &count) {
+void find(Node *root, int &k, int &ans) {
     
     if(!root)
     return;
     
-    if(count > k) {
+    if(k<=0) {
         return;
     }
     
-    find(root->left,k,ans,count);
+    find(root->left,k,ans);
     
-    if(count < k) {
+    if(k>0) {
         ans = ans + root->data;
-        count++;
+        k--;
     }
     
-    find(root->right,k,ans,count);
+    find(root->right,k,ans);
 }
 
 int sum(Node* root, int k)  { 
   
     int ans = 0;
     int count = 0;
-    find(root,k,ans,count);
+    
+    find(root,k,ans);
     
     return ans;
     
