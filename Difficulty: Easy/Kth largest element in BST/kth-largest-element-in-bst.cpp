@@ -108,7 +108,7 @@ class Solution {
         
         find(root->right,k,ans);
         
-        k = k - 1;
+        k--;
         if(k == 0) {
             ans = root->data;
         }
