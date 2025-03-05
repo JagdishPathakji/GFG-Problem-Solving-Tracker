@@ -85,48 +85,48 @@ Node* buildTree(string str) {
 class Solution {
   public:
     
-    void find(Node *root, vector<int> &v) {
-        
-        if(!root)
-        return;
-        
-        find(root->left,v);
-        v.push_back(root->data);
-        find(root->right,v);
-    }
-    
-    
     vector<int> findCommon(Node *r1, Node *r2) {
         
-        vector<int> v1;
-        vector<int> v2;
-        
-        find(r1,v1);
-        find(r2,v2);
-        
-        int i = 0;
-        int j = 0;
-
+        stack<Node*> s1, s2;
         vector<int> ans;
-        int k = 0;
-        
-        while(i < v1.size() and j < v2.size()) {
-            
-            if(v1[i] == v2[j]) {
-                ans.push_back(v1[i]);
-                k++;
-                i++;
-                j++;
+    
+        while (true) {
+            // Push all left nodes of r1 and r2
+            while (r1) {
+                s1.push(r1);
+                r1 = r1->left;
             }
-            else if(v1[i] < v2[j]) {
-                i++;
+            while (r2) {
+                s2.push(r2);
+                r2 = r2->left;
+            }
+    
+            // If either stack is empty, break
+            if (s1.empty() || s2.empty()) break;
+    
+            r1 = s1.top();
+            r2 = s2.top();
+    
+            if (r1->data == r2->data) {
+                ans.push_back(r1->data);
+                s1.pop();
+                s2.pop();
+                r1 = r1->right;
+                r2 = r2->right;
+            }
+            else if (r1->data < r2->data) {
+                s1.pop();
+                r1 = r1->right;
+                r2 = nullptr; // Don't move r2
             }
             else {
-                j++;
+                s2.pop();
+                r2 = r2->right;
+                r1 = nullptr; // Don't move r1
             }
         }
-        
         return ans;
+
     }
 };
 
