@@ -93,10 +93,12 @@ class Solution {
         return;
         
         find(root->left,low,high,v);
-        if(root->data >= low and root->data <= high) {
-            v.push_back(root->data);
-        }
+        
+        if(root->data >= low and root->data <= high)
+        v.push_back(root->data);
+        
         find(root->right,low,high,v);
+        
     }
   
     vector<int> printNearNodes(Node *root, int low, int high) {
