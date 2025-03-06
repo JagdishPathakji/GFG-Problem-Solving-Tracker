@@ -57,15 +57,15 @@ struct TNode {   //Tree
 class Solution {
   public:
     
-    // Input is not given in sorted order in some case and sorting is also causing
-    // problem due to which code is not getting accepted... :( 
+    
+    // look at the test case very carefully..........
     TNode *createBST(vector<int> &v, int start, int end) {
         
         if(start > end) {
             return nullptr;
         }
         
-        int mid = start + (end - start + 1)/2;
+        int mid = (start + end + 1)/2;
         TNode *root = new TNode(v[mid]);
         
         root->left = createBST(v,start,mid-1);
