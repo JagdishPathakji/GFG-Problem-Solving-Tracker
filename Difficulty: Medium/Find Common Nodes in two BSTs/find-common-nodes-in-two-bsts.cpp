@@ -87,46 +87,46 @@ class Solution {
     
     vector<int> findCommon(Node *r1, Node *r2) {
         
-        stack<Node*> s1, s2;
+        stack<Node*> s1,s2;
         vector<int> ans;
-    
-        while (true) {
-            // Push all left nodes of r1 and r2
-            while (r1) {
+        
+        while(true) {
+            
+            while(r1) {
                 s1.push(r1);
                 r1 = r1->left;
             }
-            while (r2) {
+            
+            while(r2) {
                 s2.push(r2);
                 r2 = r2->left;
             }
-    
-            // If either stack is empty, break
-            if (s1.empty() || s2.empty()) break;
-    
+            
+            if(s1.empty() or s2.empty()) break;
+            
             r1 = s1.top();
             r2 = s2.top();
-    
-            if (r1->data == r2->data) {
+            
+            if(r1->data == r2->data) {
                 ans.push_back(r1->data);
                 s1.pop();
                 s2.pop();
                 r1 = r1->right;
                 r2 = r2->right;
             }
-            else if (r1->data < r2->data) {
+            else if(r1->data < r2->data) {
                 s1.pop();
                 r1 = r1->right;
-                r2 = nullptr; // Don't move r2
+                r2 = nullptr;
             }
             else {
                 s2.pop();
                 r2 = r2->right;
-                r1 = nullptr; // Don't move r1
+                r1 = nullptr;
             }
         }
+        
         return ans;
-
     }
 };
 
