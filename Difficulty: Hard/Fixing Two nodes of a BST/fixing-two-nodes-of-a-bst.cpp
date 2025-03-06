@@ -118,6 +118,7 @@ class Node
 class Solution {
   public:
     
+    
     void find(Node *root, Node *&gadbad1, Node *&gadbad2, int &prev, bool &first, Node *&prevnode) {
         
         if(!root) return;
@@ -129,6 +130,7 @@ class Solution {
                     gadbad1 = prevnode;
                     first = false;
                 }
+                // making the gadbad2 change to handle both cases : (only one gadbad obtained (occurs if two adjacent nodes are swapped by mistake) || two gadbad obtained)
                 gadbad2 = root;
             }
         }
@@ -139,10 +141,14 @@ class Solution {
         find(root->right,gadbad1,gadbad2,prev,first,prevnode);
         
     }
-  
+    
+    
     void correctBST(Node* root) {
         
         // find two nodes where there is miskate
+        /* 
+        O(n) time and O(n) space solution : 
+        */
         Node *gadbad1 = nullptr,*gadbad2 = nullptr;
         
         bool first = true;
@@ -152,10 +158,31 @@ class Solution {
         find(root,gadbad1,gadbad2,prev,first,prevnode);
         
         if(gadbad1 and gadbad2) {
-            int temp = gadbad1->data;
-            gadbad1->data = gadbad2->data;
-            gadbad2->data = temp;
+            swap(gadbad1->data,gadbad2->data);
         }   
+        
+        /*
+        Approach : 
+        
+        Consider that we have retrived the inorder traversal of the given tree
+        in an vector and then swapped the two indexes which are at wrong place.
+        
+        Same thing i have done using recursion (which saves the space of using the vector).
+        For finding the two wrongly placed values, we will traverse the vector and easily 
+        we can find which two values are swapped
+        
+        There are two case possible : 
+        1. Gadbad obtained only one time in inorder array : 
+        -> In that case we have to swap the adjacent two values
+        2. Gadbad obtained two time in inorder array : 
+        -> 1. The first index of 1st gadbad and second index of 2nd gadbad needs 
+        to be exchanged in such case
+        
+        This same logic is being applied in the recursion which saves the O(n) space occupied by the vector
+        
+        */
+        
+        /* O(n) time and O(1) space solution : */
         
     }
 };
