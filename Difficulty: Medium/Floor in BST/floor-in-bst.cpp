@@ -1,27 +1,113 @@
 //{ Driver Code Starts
 #include <bits/stdc++.h>
-
 using namespace std;
+#define MAX_HEIGHT 100000
 
+// Tree Node
 struct Node {
     int data;
-    Node *right;
-    Node *left;
-
-    Node(int x) {
-        data = x;
-        right = NULL;
-        left = NULL;
-    }
+    Node* left;
+    Node* right;
 };
 
+// Utility function to create a new Tree Node
+Node* newNode(int val) {
+    Node* temp = new Node;
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
 
+    return temp;
+}
+
+// Function to Build Tree
+Node* buildTree(string str) {
+    // Corner Case
+    if (str.length() == 0 || str[0] == 'N') return NULL;
+
+    // Creating vector of strings from input
+    // string after spliting by space
+    vector<string> ip;
+
+    istringstream iss(str);
+    for (string str; iss >> str;) ip.push_back(str);
+
+    // Create the root of the tree
+    Node* root = newNode(stoi(ip[0]));
+
+    // Push the root to the queue
+    queue<Node*> queue;
+    queue.push(root);
+
+    // Starting from the second element
+    int i = 1;
+    while (!queue.empty() && i < ip.size()) {
+
+        // Get and remove the front of the queue
+        Node* currNode = queue.front();
+        queue.pop();
+
+        // Get the current node's value from the string
+        string currVal = ip[i];
+
+        // If the left child is not null
+        if (currVal != "N") {
+
+            // Create the left child for the current node
+            currNode->left = newNode(stoi(currVal));
+
+            // Push it to the queue
+            queue.push(currNode->left);
+        }
+
+        // For the right child
+        i++;
+        if (i >= ip.size()) break;
+        currVal = ip[i];
+
+        // If the right child is not null
+        if (currVal != "N") {
+
+            // Create the right child for the current node
+            currNode->right = newNode(stoi(currVal));
+
+            // Push it to the queue
+            queue.push(currNode->right);
+        }
+        i++;
+    }
+
+    return root;
+}
+
+int floor(Node* root, int key);
+
+int main() {
+
+    int t;
+    string tc;
+    getline(cin, tc);
+    t = stoi(tc);
+    while (t--) {
+        string s, ch;
+        getline(cin, s);
+        Node* root = buildTree(s);
+        getline(cin, s);
+        int x = stoi(s);
+
+        int ans = floor(root, x);
+        cout << ans << "\n";
+    
+cout << "~" << "\n";
+}
+    return 0;
+}
 // } Driver Code Ends
 
-// Function to search a node in BST.
-class Solution{
-public:
-    
+
+// User function Template for C++
+
+// Function to return the floor of given number in BST.
     void find(Node *root, int &ans, int input) {
     
         if(!root) return;
@@ -40,54 +126,13 @@ public:
     }   
 
 
-    int floor(Node* root, int x) {
-        // Code here
-        
+    int floor(Node* root, int key) {
+    // Your code goes here
         int ans = INT_MAX;
-        find(root,ans,x);
+        find(root,ans,key);
         
         if(ans == INT_MAX) return -1;
         return ans;
-    }
-};
-
-
-//{ Driver Code Starts.
-
-Node *insert(Node *tree, int val) {
-    Node *temp = NULL;
-    if (tree == NULL) return new Node(val);
-
-    if (val < tree->data) {
-        tree->left = insert(tree->left, val);
-    } else if (val > tree->data) {
-        tree->right = insert(tree->right, val);
-    }
-
-    return tree;
-}
-
-int main() {
-    int T;
-    cin >> T;
-    while (T--) {
-        Node *root = NULL;
-
-        int N;
-        cin >> N;
-        for (int i = 0; i < N; i++) {
-            int k;
-            cin >> k;
-            root = insert(root, k);
-        }
-
-        int s;
-        cin >> s;
-        Solution obj;
-        cout << obj.floor(root, s) << "\n";
     
-cout << "~" << "\n";
-}
-}
-
-// } Driver Code Ends
+    
+    }
