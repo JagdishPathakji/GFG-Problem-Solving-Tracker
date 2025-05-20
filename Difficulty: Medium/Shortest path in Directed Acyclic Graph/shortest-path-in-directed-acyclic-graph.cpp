@@ -2,25 +2,19 @@
 class Solution {
   public:
     
-    void DFS(pair<int,int> pr, vector<pair<int,int>> adjlist[], vector<int> &distance, vector<bool> &visited) {
+    void DFS(int node, vector<pair<int,int>> adjlist[], vector<bool> &visited, stack<int> &st) {
         
-        if(distance[pr.first] > pr.second) {
-            distance[pr.first] = pr.second;
-        }
-        else {
-            return;
-        }
-        visited[pr.first] = true;
+        visited[node] = true;
         
-        for(int i=0; i<adjlist[pr.first].size(); i++) {
-            if(!visited[adjlist[pr.first][i].first]) {
-                DFS({adjlist[pr.first][i].first,pr.second+adjlist[pr.first][i].second},adjlist,distance,visited);
-            }
+        for(int i=0; i<adjlist[node].size(); i++) {
+            if(!visited[adjlist[node][i].first]) {
+                DFS(adjlist[node][i].first,adjlist,visited,st);
+            }   
         }
         
-        visited[pr.first] = false;
+        st.push(node);
     }
-  
+    
     vector<int> shortestPath(int V, int E, vector<vector<int>>& edges) {
         // code here
         vector<pair<int,int>> adjlist[V];
@@ -32,17 +26,31 @@ class Solution {
             adjlist[u].push_back({v,w});
         }
         
-        vector<int> distance(V,INT_MAX);
+        stack<int> st;
         vector<bool> visited(V,false);
-        pair<int,int> pr;
-        pr = make_pair(0,0);
-        DFS(pr,adjlist,distance,visited);
         
-        for(int i=0; i<V; i++) {
-            if(distance[i] == INT_MAX)
-            distance[i] = -1;
+        DFS(0,adjlist,visited,st);
+        vector<int> ans(V,INT_MAX);
+        
+        ans[0] = 0;
+        while(!st.empty()) {
+            
+            int node = st.top();
+            st.pop();
+            
+            for(int i=0; i<adjlist[node].size(); i++) {
+                int edge = adjlist[node][i].first;
+                int weight = adjlist[node][i].second;
+                
+                ans[adjlist[node][i].first] = min(ans[adjlist[node][i].first],ans[node]+weight);
+            }
         }
         
-        return distance;
+        for(int i=0; i<V; i++) {
+            if(ans[i] == INT_MAX)
+            ans[i] = -1;
+        }
+        
+        return ans;
     }
 };
