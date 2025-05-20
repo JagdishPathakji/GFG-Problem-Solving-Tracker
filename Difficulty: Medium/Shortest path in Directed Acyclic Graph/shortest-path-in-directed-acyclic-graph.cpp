@@ -42,7 +42,7 @@ class Solution {
                 int edge = adjlist[node][i].first;
                 int weight = adjlist[node][i].second;
                 
-                ans[adjlist[node][i].first] = min(ans[adjlist[node][i].first],ans[node]+weight);
+                ans[edge] = min(ans[edge],ans[node]+weight);
             }
         }
         
