@@ -4,6 +4,7 @@ class Solution {
   public:
     void floydWarshall(vector<vector<int>> &dist) {
         // Code here
+        // if any of the diagonal element becames -ve that means an -ve cycle is present.
         int n = dist.size();
         for(int k = 0; k<n; k++) {
             for(int i=0; i<n; i++) {
