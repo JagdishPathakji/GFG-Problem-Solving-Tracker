@@ -10,78 +10,47 @@ class Solution {
         return parent[u] = findparent(parent[u],parent);
     }
     
-    void unionbyrank(int u, int v, vector<int> &parent, vector<int> &rank) {
+    void unionbyrank(int u, int v, vector<int> &parent, vector<int> &size) {
         
         int pu = findparent(u,parent);
         int pv = findparent(v,parent);
         
-        if(rank[pu] > rank[pv]) {
+        if(size[pu] >= size[pv]) {
             parent[pv] = pu;
+            size[pu] += size[pv];
         }
-        else if(rank[pv] > rank[pu]) {
+        else if(size[pv] > size[pu]) {
             parent[pu] = pv;
-        }
-        else {
-            parent[pv] = pu;
-            rank[pu]++;
+            size[pv] += size[pu];
         }
     }
     
     int spanningTree(int V, vector<vector<int>> adj[]) {
     
-        /* Prims 
-        vector<bool> isMST(V,false);
-        vector<int> parent(V,-1);
-        int cost = 0;
-        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq;
-        pq.push({0,{0,-1}});
-        
-        while(!pq.empty()) {
-            
-            auto top = pq.top();
-            pq.pop();
-            
-            int wt = top.first;
-            int node = top.second.first;
-            int prt = top.second.second;
-            
-            if(isMST[node])
-            continue;
-            
-            isMST[node] = 1;
-            cost = cost + wt;
-            parent[node] = prt;
-            
-            for(int i=0; i<adj[node].size(); i++) {
-                if(!isMST[adj[node][i][0]]) {
-                    pq.push({adj[node][i][1],{adj[node][i][0],node}});
-                }
-            }
-        }
-        
-        return cost;
-        */
-        
         // Ultimate parent will help us to determine the set
         vector<int> parent(V);
         // It will help us to merge the set
-        vector<int> rank(V,0);
+        vector<int> size(V,0);
         
         for(int i=0; i<V; i++) {
             parent[i] = i;
         }
         
         // Priority Queue
-        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq;
+        vector<pair<int,pair<int,int>>> temp;
         for(int i=0; i<V; i++) {
             for(int j=0; j<adj[i].size(); j++) {
-                pq.push({adj[i][j][1],{i,adj[i][j][0]}});
+                temp.push_back({adj[i][j][1],{i,adj[i][j][0]}});
             }
         }
+        
+        // doing this way will reduce the complexity of pushing nodes from ElogE to E.
+        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq(temp.begin(),temp.end());
         
         int cost = 0;
         int edges = 0;
         while(!pq.empty()) {
+            
             auto top = pq.top();
             pq.pop();
             
@@ -92,11 +61,11 @@ class Solution {
             // check if u and v are in same set or different set
             if(findparent(u,parent) != findparent(v,parent)) {
                 cost += wt;
-                unionbyrank(u,v,parent,rank);
+                unionbyrank(u,v,parent,size);
                 edges++;
             }
             
-            //
+            // if V-1 edges are obtained then algorithm stops.
             if(edges == V-1)
             break;
             
