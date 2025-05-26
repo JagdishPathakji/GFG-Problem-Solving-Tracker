@@ -2,68 +2,68 @@
 
 class Solution {
   public:
-    void DFS(int node, vector<bool> &visited, vector<int> adj[], stack<int> &st) {
+
+    void DFS(int node,int parent,vector<int> adj[],vector<bool> &visited,vector<int> &discovery,vector<int> &low,stack<int> &st,vector<bool> &instack,vector<vector<int>> &ans,int &count) {
         
         visited[node] = true;
-        
-        for(int i=0; i<adj[node].size(); i++) {
-            if(!visited[adj[node][i]])
-            DFS(adj[node][i],visited,adj,st);
-        }
-        
+        discovery[node] = count;
+        low[node] = count;
         st.push(node);
-    }
-  
-    void SCC(int node, vector<bool> &visited, vector<vector<int>> &adj, vector<int> &temp) {
-        
-        visited[node] = true;
-        temp.push_back(node);
+        instack[node] = true;
         
         for(int i=0; i<adj[node].size(); i++) {
-            if(!visited[adj[node][i]])
-            SCC(adj[node][i],visited,adj,temp);
-        }
-    }
-  
-    
-    vector<vector<int>> tarjans(int V, vector<int> adj[]) {
-        // code here
-        // finding the topological sort
-        vector<bool> visited(V,0);
-        stack<int> st;
-        
-        for(int i=0; i<visited.size(); i++) {
-            if(!visited[i])
-            DFS(i,visited,adj,st);
-        }
-        
-        // reversing the edges
-        
-        vector<vector<int>> adjlist(V);
-        for(int i=0; i<V; i++) {
-            for(int j=0; j<adj[i].size(); j++) {
-                adjlist[adj[i][j]].push_back(i);
+            
+            int neigh = adj[node][i];
+            if(visited[neigh]) {
+                // if it is present in stack or not.
+                // if it is present then only update the low[node]
+                if(instack[neigh])
+                low[node] = min(low[node],discovery[neigh]);
+            }
+            else {
+            
+                count++;
+                DFS(neigh,node,adj,visited,discovery,low,st,instack,ans,count);
+            
+                low[node] = min(low[node],low[neigh]);
+                
             }
         }
         
-        // find the SCC using DFS operation
-        vector<vector<int>> ans;
-        vector<bool> visited2(adjlist.size(),0);
-        while(!st.empty()) {
-            
-            int node = st.top();
+        if(discovery[node] == low[node]) {
+            vector<int> temp;
+            while(!st.empty() and st.top() != node) {
+                temp.push_back(st.top());
+                instack[st.top()] = 0;
+                st.pop();
+                
+            }
+            temp.push_back(st.top());
+            instack[st.top()] = 0;
             st.pop();
             
-            if(!visited2[node]) {
-                vector<int> temp;
-                SCC(node,visited2,adjlist,temp);
-                sort(temp.begin(),temp.end());
-                ans.push_back(temp);
-            }
+            sort(temp.begin(),temp.end());
+            ans.push_back(temp);
+        }
+    }
+
+    vector<vector<int>> tarjans(int V, vector<int> adj[]) {
+        
+        vector<vector<int>> ans;
+        vector<int> discovery(V);
+        vector<int> low(V);
+        vector<bool> visited(V,false);
+        stack<int> st;
+        vector<bool> instack(V,false);
+        int count = 0;
+        
+        // Required loop to manage the disconnected graph case
+        for(int i=0; i<V; i++) {
+            if(!visited[i])
+            DFS(i,-1,adj,visited,discovery,low,st,instack,ans,count); 
         }
         
         sort(ans.begin(),ans.end());
         return ans;
-              
     }
 };
