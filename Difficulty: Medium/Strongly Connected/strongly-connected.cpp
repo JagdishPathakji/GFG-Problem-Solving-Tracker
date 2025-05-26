@@ -36,7 +36,6 @@ class Solution {
         }
         
         // reversing the edges
-        
         vector<vector<int>> adjlist(adj.size());
         for(int i=0; i<adj.size(); i++) {
             for(int j=0; j<adj[i].size(); j++) {
