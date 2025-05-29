@@ -11,41 +11,36 @@ class Solution {
         
         priority_queue<double> maxheap;
         priority_queue<double, vector<double>, greater<double>> minheap;
-        
         vector<double> ans;
+        
         for(int i=0; i<arr.size(); i++) {
             
-            // pushing into the heaps
-            if(maxheap.empty()) {
+            // inserting element to the heap
+            if(maxheap.size() == 0) {
                 maxheap.push(arr[i]);
             }
-            else if(maxheap.top() >= arr[i]) {
+            else if(arr[i] <= maxheap.top()) {
                 maxheap.push(arr[i]);
             }
             else {
                 minheap.push(arr[i]);
             }
             
-            
-            // balancing the heaps
-            if(maxheap.size() > minheap.size() + 1) {
+            // balancing the heap
+            if(maxheap.size()-1 > minheap.size()) {
                 minheap.push(maxheap.top());
                 maxheap.pop();
             }
-            else if(minheap.size() > maxheap.size()) {
+            else if(minheap.size()-1 == maxheap.size()) {
                 maxheap.push(minheap.top());
-                minheap.pop(); 
+                minheap.pop();
             }
             
-            // get median
-            if(maxheap.size() > minheap.size()) {
-                ans.push_back(maxheap.top());     
-            }
-            else {
-                double temp = maxheap.top()+minheap.top();
-                temp /= 2;
-                ans.push_back(temp);
-            }
+            // finding the median
+            if(maxheap.size() > minheap.size()) 
+            ans.push_back(maxheap.top());
+            else
+            ans.push_back((maxheap.top()+minheap.top())/2);
         }
         
         return ans;
