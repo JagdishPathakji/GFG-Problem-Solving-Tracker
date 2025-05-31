@@ -4,8 +4,6 @@ class Solution {
         
         priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq;
         pq.push({matrix[0][0],{0,0}});
-        vector<vector<bool>> visited(matrix.size(), vector<bool>(matrix[0].size(),false));
-        visited[0][0] = 1;
         k--;
         
         while(!pq.empty() and k--) {
@@ -16,13 +14,13 @@ class Solution {
     
             pq.pop();
             
-            if(i+1 < matrix.size() and !visited[i+1][j]) {
+            if(i+1 < matrix.size() and matrix[i+1][j] != -1) {
                 pq.push({matrix[i+1][j],{i+1,j}});
-                visited[i+1][j] = 1;
+                matrix[i+1][j] = -1;
             }
-            if(j+1 < matrix[i].size() and !visited[i][j+1]) {
+            if(j+1 < matrix[i].size() and matrix[i][j+1] != -1) {
                 pq.push({matrix[i][j+1],{i,j+1}});
-                visited[i][j+1] = 1;
+                matrix[i][j+1] = -1;
             }
         }
         
