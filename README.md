@@ -1,2 +1,4 @@
-# GFG-Problem-Solving-Tracker
-This repository serves as a collection of my solutions to various GeeksforGeeks Data Structures and Algorithms (DSA) problems, organized by the level of difficulty. - Created using [GfG To GitHub](https://github.com/AtharvaNanavate/GfG-To-GitHub)
+# 🧠 DSA Repository — Jagdish Pathakji
+
+Welcome to my personal collection of Data Structures & Algorithms problems, solved on [GeeksForGeeks](https://www.geeksforgeeks.org/).
+I use this repo to track my daily progress, revise concepts, and keep my logic clean and reusable.
