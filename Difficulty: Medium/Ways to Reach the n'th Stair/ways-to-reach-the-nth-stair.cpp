@@ -1,21 +1,21 @@
 class Solution {
   public:
   
-    int ways(int n, vector<int> &dp) {
-        if(n < 0) return 0;
-        if(n == 0) return 1;
-        
-        if(dp[n] != -1)
-        return dp[n];
-        
-        return dp[n] = ways(n-1,dp) + ways(n-2,dp);
-    }
-  
     int countWays(int n) {
         
-        vector<int> dp(n+1,-1);
-        ways(n,dp);
+        if(n <= 2)
+        return n;
         
-        return dp[n];
+        int first = 1;
+        int second = 2;
+        int third;
+        
+        for(int i=2; i<n; i++) {
+            third = first + second;
+            first = second;
+            second = third;
+        }
+        
+        return third;
     }
 };
