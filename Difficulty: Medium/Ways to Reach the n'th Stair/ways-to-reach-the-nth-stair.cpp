@@ -1,21 +1,23 @@
 class Solution {
   public:
+
+    int findways(int pos, int n, vector<int> &dp) {
+        
+        if(pos == n) 
+        return 1;
+        if(pos > n) 
+        return 0;
+        
+        if(dp[pos] != -1)
+        return dp[pos];
+        
+        return dp[pos] = findways(pos+1,n,dp) + findways(pos+2,n,dp);
+    }
   
     int countWays(int n) {
         
-        if(n <= 2)
-        return n;
-        
-        int first = 1;
-        int second = 2;
-        int third;
-        
-        for(int i=2; i<n; i++) {
-            third = first + second;
-            first = second;
-            second = third;
-        }
-        
-        return third;
+        vector<int> dp(n+1,-1);
+        return findways(0,n,dp);
+
     }
 };
