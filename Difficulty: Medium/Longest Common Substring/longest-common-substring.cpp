@@ -15,9 +15,6 @@ class Solution {
                     dp[i][j] = 1 + dp[i-1][j-1];
                     lcs = max(lcs,dp[i][j]);
                 }
-                else {
-                    dp[i][j] = 0;
-                }
             }
         }
         
