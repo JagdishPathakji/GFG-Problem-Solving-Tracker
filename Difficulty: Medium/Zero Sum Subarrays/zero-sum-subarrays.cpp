@@ -4,18 +4,15 @@ class Solution {
         
         int prefixSum = 0;
         unordered_map<int,int> mp;
+        mp[0] = 1;
         
         int total = 0;
         for(int i=0; i<arr.size(); i++) {
             
             prefixSum += arr[i];
             
-            if(mp[prefixSum] >= 1) {
-                total += mp[prefixSum];
-            }
-            
-            if(prefixSum == 0)
-            total++;
+            if(mp.find(prefixSum) != mp.end())
+            total += mp[prefixSum];
             
             mp[prefixSum]++;
         }
