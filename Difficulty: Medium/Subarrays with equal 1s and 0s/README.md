@@ -1,0 +1,9 @@
+<h2><a href="https://www.geeksforgeeks.org/problems/count-subarrays-with-equal-number-of-1s-and-0s-1587115620/1?page=1&category=prefix-sum,Kadane&sortBy=difficulty">Subarrays with equal 1s and 0s</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given an array <strong>arr[]</strong> containing 0s and 1s. Count the number of subarrays having equal number of 0s and 1s. </span></p>
+<p><strong><span style="font-size: 18px;">Examples:</span></strong></p>
+<pre><strong><span style="font-size: 18px;">Input: </span></strong><span style="font-size: 18px;">arr[] = [1, 0, 0, 1, 0, 1, 1]
+<strong>Output: </strong>8<strong>
+Explanation: </strong></span><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 18px;">The index range for the 8 sub-arrays are: (</span></span><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 18px;">0, 1), (2, 3), (0, 3), (3, 4), (4, 5) ,</span></span><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 18px;">(2, 5), (0, 5), (1, 6)</span></span></pre>
+<pre><strong><span style="font-size: 18px;">Input: </span></strong><span style="font-size: 18px;">arr[] = [1, 1, 1, 1, 0]
+<strong>Output: </strong>1<strong>
+Explanation: </strong></span><span style="font-family: arial,helvetica,sans-serif;"><span style="font-size: 18px;">The index range for the subarray is (3,4).</span></span></pre>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 ≤ arr.size() ≤ 10<sup>5</sup><br>0 ≤ arr[i] ≤ 1</span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Arrays</code>&nbsp;<code>Hash</code>&nbsp;<code>Data Structures</code>&nbsp;<code>prefix-sum</code>&nbsp;
