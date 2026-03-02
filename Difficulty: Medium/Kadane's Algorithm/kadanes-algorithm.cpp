@@ -7,17 +7,16 @@ class Solution {
         
         for(int i=0; i<arr.size(); i++) {
             
-            if(sum+arr[i] >= arr[i]) {
-                sum += arr[i];
-            }
-            else {
-                sum = arr[i];
-            }
+            sum += arr[i];
             
-            maxi = max(maxi,sum);
+            if(sum > maxi)
+            maxi = sum;
+            
+            if(sum < 0) {
+                sum = 0;
+            }
         }
         
-        maxi = max(maxi,sum);
         return maxi;
     }
 };
