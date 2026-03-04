@@ -1,7 +1,6 @@
-/*Linked list Node structure
-
-struct Node
-{
+/*
+class Node {
+  public:
     int data;
     Node* next;
 
@@ -9,7 +8,6 @@ struct Node
         data = x;
         next = NULL;
     }
-
 };
 */
 
@@ -17,25 +15,31 @@ class Solution {
   public:
     Node* mergeKLists(vector<Node*>& arr) {
         
-        priority_queue<int, vector<int>, greater<int>> pq;
+        priority_queue<pair<int,Node*>, vector<pair<int,Node*>>, greater<pair<int,Node*>>> pq;
+        
         for(int i=0; i<arr.size(); i++) {
-            Node *head = arr[i];
-            while(head) {
-                pq.push(head->data);
-                head = head->next;
-            }
+            pq.push({arr[i]->data,arr[i]});
         }
+        
         
         Node *head = new Node(0);
-        Node *realhead = head;
+        Node *curr = head;
         while(!pq.empty()) {
-            Node *newnode = new Node(pq.top());
+            
+            auto peek = pq.top();
+            int val = peek.first;
+            Node *temp = peek.second;
+            
+            curr->next = new Node(val);
+            curr = curr->next;
             pq.pop();
-            head->next = newnode;
-            head = head->next;
+            
+            if(temp->next)
+            pq.push({temp->next->data,temp->next});
+            
         }
+        curr->next = nullptr;
         
-        return realhead->next;
-        
+        return head->next;
     }
 };
