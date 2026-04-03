@@ -1,0 +1,8 @@
+<h2><a href="https://www.geeksforgeeks.org/problems/height-of-spiral-tree/1?page=1&category=Tree&status=unsolved&sortBy=difficulty">Height of Spiral Tree</a></h2><h3>Difficulty Level : Difficulty: Easy</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given a special Binary Tree&nbsp;whose leaf nodes are connected to form a circular doubly linked list. Find the height of this special Binary Tree.</span></p>
+<p><span style="font-size: 18px;"><strong>Examples:</strong></span></p>
+<pre><span style="font-size: 18px;"><strong>Input: </strong>root = [1, 2, 3, 4, 5, N, 6]<strong><br><img src="https://media.geeksforgeeks.org/img-practice/prod/addEditProblem/880972/Web/Other/blobid0_1732865147.png" width="343" height="291"><br></strong></span><span style="font-size: 18px;"><strong>Output: </strong>2<strong>
+Explanation: </strong>The height of given tree is 2.</span>
+</pre>
+<pre><span style="font-size: 18px;"><strong>Input: </strong>root = [1, 2, 3]<strong><br></strong><img src="https://media.geeksforgeeks.org/img-practice/prod/addEditProblem/880972/Web/Other/blobid0_1732863453.png" alt="" width="329" height="281"><strong>
+Output: </strong>1<br><strong>Explanation: </strong>The height of given tree is 1.</span></pre>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 &lt;= number of nodes &lt;= 10<sup>5<br></sup>1 &lt;= node -&gt; data &lt;= 10<sup>5</sup></span></p></div><p><span style=font-size:18px><strong>Company Tags : </strong><br><code>Amazon</code>&nbsp;<br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Tree</code>&nbsp;<code>Data Structures</code>&nbsp;
