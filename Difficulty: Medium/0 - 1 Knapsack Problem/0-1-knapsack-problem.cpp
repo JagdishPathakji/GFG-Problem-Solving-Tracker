@@ -1,24 +1,28 @@
 class Solution {
   public:
     
-    int find(int i, int W, vector<int> &wt, vector<int> &val, vector<vector<int>> &dp) {
+    int t[1002][1002];
+    int recursion(int w, vector<int> &val, vector<int> &wt, int n) {
         
-        if(i == wt.size()) return 0;
+        if(w == 0 || n == 0) 
+        return 0;
         
-        if(dp[i][W] != -1) return dp[i][W];
+        if(t[w][n-1] != -1) 
+        return t[w][n-1];
         
-        int take = INT_MIN,leave;
+        if(wt[n-1] <= w) {
+            return t[w][n-1] = max(val[n-1] + recursion(w-wt[n-1],val,wt,n-1),recursion(w,val,wt,n-1));
+        }
+        else {
+            return t[w][n-1] = recursion(w,val,wt,n-1);
+        }
         
-        if(wt[i] <= W)
-        take = val[i] + find(i+1,W-wt[i],wt,val,dp);
-        leave = find(i+1,W,wt,val,dp);
-        
-        return dp[i][W] = max(take,leave);
     }
   
     int knapsack(int W, vector<int> &val, vector<int> &wt) {
         
-        vector<vector<int>> dp(wt.size()+1, vector<int>(W+1,-1));
-        return find(0,W,wt,val,dp);
+        int n = val.size();
+        memset(t,-1,sizeof(t));
+        return recursion(W,val,wt,n);
     }
 };
